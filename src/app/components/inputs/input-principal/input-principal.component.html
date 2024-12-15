@@ -1,0 +1,9 @@
+<div class="w-full lg:w-12/12 px-4">
+  <div class="relative w-full mb-3">
+    <label for="inputName" class="block uppercase text-blueGray-600 text-ls font-bold mb-2">
+      {{label}}
+    </label>
+    <input formControlName="caloriasQueimadas" [placeholder]="placeholder" [type]="type" [value]="value" (input)="onInput($event)"
+      class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150">
+  </div>
+</div>

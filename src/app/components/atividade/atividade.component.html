@@ -1,0 +1,98 @@
+
+<div class="flex">
+  <div class="mr-5 w-1/2 bg-gray-100 rounded-lg">
+
+      <ul>
+        <!-- component -->
+        <div class="flex h-screen">
+          <div class="w-full">
+            <form [formGroup]="atividadeForm" >
+                <div class="flex">
+                  <div class="flex-1 py-5 pl-5 overflow-hidden">
+                    <h3 class="inline text-2xl font-semibold leading-none">Nova atividade</h3>
+                  </div>
+                </div>
+                <div class="px-5 pb-5">
+                  <!--Input 1-->
+                  <app-input-principal formControlName="caloriasQueimadas" label="Calorias queimadas" placeholder="Insira as calorias queimadas"></app-input-principal>
+
+                  <!--Input 2-->
+                  <app-input-principal formControlName="distancia" label="Distancia percorrida" placeholder="Distancia percorrida em Km"></app-input-principal>
+
+                  <!--Input 3-->
+                  <app-input-principal formControlName="passos" label="Passos" placeholder="Quantidade de passos"></app-input-principal>
+
+                  <!--Data-->
+                    <div class="w-full lg:w-12/12 px-4">
+                      <div class="relative w-full">
+                        <label class="block uppercase text-blueGray-600 text-ls font-bold mb-4">
+                          Data
+                        </label>
+                        <p-calendar formControlName="data" [(ngModel)]="date" hourFormat="24" dateFormat="dd/mm/yy" [showTime]="true" [showIcon]="true" class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                          inputId="buttondisplay" />
+                      </div>
+                    </div>
+
+                </div>
+                <hr class="mt-4">
+                <div class="p-4 ml-5">
+                    <div class="w-full">
+                    <p-toast position="bottom-right" [life]="4000"/>
+                      <button type="button" [disabled]="!atividadeForm.valid" (click)="enviarForm()" [ngClass]="{' bg-blue-600 hover:bg-blue-800' : atividadeForm.valid, ' bg-gray-400' : !atividadeForm.valid}"
+                        class="w-100 flex items-center px-9 py-2.5 font-medium text-white tracking-wide capitalize rounded-md focus:outline-none transition duration-300 transform active:scale-95 ease-in-out">
+                        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px"
+                          fill="#FFFFFF">
+                          <path d="M0 0h24v24H0V0z" fill="none"></path>
+                          <path
+                            d="M5 5v14h14V7.83L16.17 5H5zm7 13c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3zm3-8H6V6h9v4z"
+                            opacity=".3"></path>
+                          <path
+                            d="M17 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V7l-4-4zm2 16H5V5h11.17L19 7.83V19zm-7-7c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3zM6 6h9v4H6z">
+                          </path>
+                        </svg>
+                        <span class="pl-2 mx-1">Salvar</span>
+                      </button>
+                    </div>
+                </div>
+            </form>
+          </div>
+        </div>
+      </ul>
+  </div>
+
+  <div class="w-1/2 p-5 flex-shrink-0 flex flex-col
+  bg-gray-100 rounded-lg">
+
+    <h3 class="flex items-center pb-1 px-3 text-lg font-bold
+      capitalize">
+      <!-- Header -->
+      <span class="text-black inline text-2xl font-semibold leading-none pb-5">Atividades</span>
+    </h3>
+
+    <div class="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded">
+      <div class="block w-full">
+        <p-table [value]="atividades" [paginator]="true" [rows]="7" [tableStyle]="{ 'min-width': '30rem' }"
+          [rowsPerPageOptions]="[10, 20, 30]">
+          <ng-template pTemplate="header">
+            <tr>
+              <th style="width:20%">CALORIAS QUEIMADAS</th>
+              <th style="width:20%">PASSOS</th>
+              <th style="width:20%">DISTÂNCIA</th>
+              <th style="width:20%">DATA</th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-atividades>
+            <tr>
+              <td>{{atividades.caloriasQueimadas}}</td>
+              <td>{{atividades.passos}}</td>
+              <td>{{atividades.distancia}}</td>
+              <td>{{atividades.data | date:'dd/MM/yyyy  HH:mm'}}</td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </div>
+    </div>
+    </div>
+
+</div>
+

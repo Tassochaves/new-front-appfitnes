@@ -1,0 +1,116 @@
+
+<div class="flex">
+  <div class="mr-5 w-1/2 bg-gray-100 rounded-lg">
+
+      <ul>
+        <!-- component -->
+        <div class="flex h-screen">
+          <div class="w-full">
+            <form [formGroup]="metaForm">
+              <div>
+                <div class="flex">
+                  <div class="flex-1 py-5 pl-5 overflow-hidden">
+                    <h3 class="inline text-2xl font-semibold leading-none">Nova meta</h3>
+                  </div>
+                </div>
+                <div class="px-5 pb-5">
+                  <div class="w-full lg:w-12/12 px-4">
+                    <div class="relative w-full mb-3">
+                      <label class="block uppercase text-blueGray-600 text-ls font-bold mb-2" htmlfor="grid-password">
+                        Descrição
+                      </label>
+                      <textarea formControlName="descricao" rows="2" cols="50" name="input1" id="input1" value="testing"
+                        class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                        placeholder="Entre com a descrição"></textarea>
+                    </div>
+                  </div>
+
+                  <div class="flex">
+                    <div class="w-full lg:w-6/12 px-4">
+                      <div class="relative w-full">
+                        <label class="block uppercase text-blueGray-600 text-ls font-bold mb-4"
+                          htmlfor="grid-password">
+                          Data início
+                        </label>
+                        <p-calendar formControlName="dataInicio" [(ngModel)]="dataInicio" hourFormat="24" dateFormat="dd/mm/yy" [showTime]="true" [showIcon]="true" class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                          inputId="buttondisplay" />
+                      </div>
+                    </div>
+
+                    <div class="flex-grow w-full">
+                      <div class="w-full lg:w-6/12 px-4">
+                        <div class="relative w-full">
+                          <label class="block uppercase text-blueGray-600 text-ls font-bold mb-4"
+                            htmlfor="grid-password">
+                            Data fim
+                          </label>
+                          <p-calendar  formControlName="dataFim"  [(ngModel)]="dataFim" hourFormat="24" dateFormat="dd/mm/yy" [showTime]="true" [showIcon]="true" class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                            inputId="calendar-24h" />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <hr class="mt-4">
+                <div class="p-4 ml-5">
+                  <div class="w-full">
+                  <p-toast position="bottom-right" [life]="4000"/>
+                    <button type="button" [disabled]="!metaForm.valid" (click)="enviarForm()" [ngClass]="{' bg-blue-600 hover:bg-blue-800' : metaForm.valid, ' bg-gray-400' : !metaForm.valid}"
+                      class="w-100 flex items-center px-9 py-2.5 font-medium text-white tracking-wide capitalize rounded-md focus:outline-none transition duration-300 transform active:scale-95 ease-in-out">
+                      <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px"
+                        fill="#FFFFFF">
+                        <path d="M0 0h24v24H0V0z" fill="none"></path>
+                        <path
+                          d="M5 5v14h14V7.83L16.17 5H5zm7 13c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3zm3-8H6V6h9v4z"
+                          opacity=".3"></path>
+                        <path
+                          d="M17 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V7l-4-4zm2 16H5V5h11.17L19 7.83V19zm-7-7c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3zM6 6h9v4H6z">
+                        </path>
+                      </svg>
+                      <span class="pl-2 mx-1">Salvar</span>
+                    </button>
+                  </div>
+              </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </ul>
+  </div>
+
+  <div class="w-1/2 p-5 flex-shrink-0 flex flex-col
+  bg-gray-100 rounded-lg">
+
+    <h3 class="flex items-center pb-1 px-3 text-lg font-bold
+      capitalize">
+      <!-- Header -->
+      <span class="text-black inline text-2xl font-semibold leading-none pb-5">Metas</span>
+    </h3>
+
+    <div class="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded">
+      <div class="block w-full">
+        <p-table [value]="metas" [paginator]="true" [rows]="7" [tableStyle]="{ 'min-width': '40rem' }"
+          [rowsPerPageOptions]="[10, 20, 30]">
+          <ng-template pTemplate="header">
+            <tr>
+              <th style="width:20%">DESCRIÇÃO</th>
+              <th style="width:20%">DATA INÍCIO</th>
+              <th style="width:20%">DATA FIM</th>
+              <th style="width:20%">SITUAÇÃO</th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-metas>
+            <tr>
+              <td>{{metas.descricao}}</td>
+              <td>{{metas.dataInicio | date:'dd/MM/yyyy  HH:mm'}}</td>
+              <td>{{metas.dataFim | date:'dd/MM/yyyy  HH:mm'}}</td>
+              <td>{{metas.alcancada ? 'Concluida': 'Concluir: '}} <span *ngIf="!metas.alcancada" (click)="atualizarStatus(metas.id)" class="pi pi-check inline-flex flex-shrink-0 items-center justify-center h-8 w-8 text-green-700 bg-green-200 rounded-full mr-6" style="cursor: pointer;"></span></td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </div>
+    </div>
+    </div>
+
+</div>
+
